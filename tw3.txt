@@ -61,6 +61,7 @@ int main(int argc, char *argv[])
 
 }
 
+///////////////////////////////////////////////////////////////////////////////////
 Termwork 3:
 *make sure input.txt is in same folder and has contents over 100 bytes*
 >gedit tw3.c
