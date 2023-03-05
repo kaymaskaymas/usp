@@ -1,0 +1,30 @@
+TW10
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+
+#define INTERVAL 5
+
+void callme(int sig_no){
+	alarm(INTERVAL);
+	printf("Hello\n");
+}
+
+int main(){
+	struct sigaction action;
+	action.sa_handler = (void(*)(int))callme;
+	sigaction(SIGALRM,&action,0);
+	alarm(2); //interrupt
+	sleep(5);
+	return 0;
+}
+
+Termwork 10:
+>gedit tw10.c
+*write your code here* and exit the editor once done
+>gcc tw10.c -o tw10
+>./tw10
+
+*after 5 seconds you will see Hello! as output*

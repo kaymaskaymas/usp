@@ -1,0 +1,27 @@
+TW7
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<sys/types.h>
+
+#define PS "ps -eo pid,ppid,state,tty,command"
+
+int main(){
+	pid_t child_pid;
+	if((child_pid=fork())<0)
+		perror("fork error");
+	else if (child_pid==0)
+		exit(0); //child
+	sleep(4); // parent
+	system(PS);
+	return 0;
+}
+
+Termwork 7:
+>gedit tw7.c
+*write your code here* and exit the editor once done
+>gcc tw7.c -o tw7
+>./tw7
+
+wait until you see a zombie process with command ./tw7 <defunct> and has Z as a symbol

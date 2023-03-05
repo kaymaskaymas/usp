@@ -1,0 +1,33 @@
+TW8
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+int main(){
+	int pid;
+	pid = fork();
+	if(pid == 0){
+	//first child
+		pid = fork();
+		if(pid == 0){
+			//second child
+			sleep(1);
+			printf("Second Child: My Parent pid is %d\n",getppid());
+		}
+	}
+	else{
+		//parent process
+		wait(NULL);
+		sleep(2);
+		system("ps -o pid,ppid,state,tty,command");
+	}
+	return 0;		
+}
+
+Termwork 8:
+>gedit tw8.c
+*write your code here* and exit the editor once done
+>gcc tw8.c -o tw8
+>./tw8
+
+if your command *./tw8* is S instead of Z, then your program is correct

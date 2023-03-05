@@ -1,0 +1,102 @@
+TW5a
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+int main(int argc,char *argv[]){
+
+	int i;
+	char **ptr;
+	extern char **environ;
+
+	for(ptr=environ;*ptr;ptr++)
+		printf("%s\n",*ptr);
+	exit(0);
+
+}
+
+TW5b
+#include<stdio.h>
+#include<unistd.h>
+#include<string.h>
+#include<sys/types.h>
+
+int main(int argc,char *argv[]){
+	if(argc==3){
+		printf("Hard Link Created\n");
+		return link(argv[1],argv[2]);
+	}
+
+	else if(argc == 4){
+		if(strcmp(argv[1],"-s") == 0){
+			printf("Symbolic link created\n");
+			return symlink(argv[3],argv[4]);	
+		}
+		else
+			printf("Option must be -s for symbolic link\n");
+	}
+	else
+		printf("Invalid number of arguments\n");                 
+	return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+TW5b
+
+#include<stdio.h>
+#include<unistd.h>
+#include<string.h>
+#include<sys/types.h>
+
+int main(int argc,char *argv[]){
+	if(argc==3){
+		printf("Hard Link Created\n");
+		return link(argv[1],argv[2]);
+	}
+
+	else if(argc == 4){
+		if(strcmp(argv[1],"-s") == 0){
+			printf("Symbolic link created\n");
+			return symlink(argv[3],argv[4]);	
+		}
+		else
+			printf("Option must be -s for symbolic link\n");
+	}
+	else
+		printf("Invalid number of arguments\n");                 
+	return 0;
+}
+
+Termwork 5a:
+>gedit tw5a.c
+*write your code here* and exit the editor once done
+>gcc tw5a.c -o tw5a
+>./tw5a
+
+
+///////////////////////////////////////////////////////
+Termwork 5b:
+>gedit tw5b.c
+*write your code here* and exit the editor once done
+>gcc tw5b.c -o tw5b
+
+to create a hard link for *input.txt* created for tw3
+>./tw5b input.txt inputH
+check if inputH is created in folder where the programs are stored
+then do
+>cat inputH
+*this should display file content of input.txt*
+
+to create a soft link for *input.txt* created for tw3
+>./tw5b -s input.txt inputS
+
+execute this command
+>ls -li input.txt inputH inputS
+
+there should be an arrow pointing from inputS->input.txt
+and inode numbers of input.txt and inputH should be same
+
+then do
+>cat inputS
+*this should also display file content of input.txt*
