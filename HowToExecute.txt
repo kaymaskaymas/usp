@@ -1,0 +1,128 @@
+make sure you save all 10 termworks in one folder
+not important but convenient
+
+Termwork 1:
+>gedit tw1.cpp
+*write your code here* and exit the editor once done
+>g++ tw1.cpp -o tw1
+>./tw1
+
+
+
+Termwork 2:
+>gedit tw2.cpp
+*write your code here* and exit the editor once done
+>g++ tw2.cpp -o tw2
+>./tw2
+
+
+
+Termwork 3:
+*make sure input.txt is in same folder and has contents over 100 bytes*
+>gedit tw3.c
+*write your code here* and exit the editor once done
+>gcc tw3.c -o tw3
+./tw3 input.txt
+
+open another terminal while file is locked and try to access this file using same command mentioned above
+if the terminal says cannot access, file is locked. then the code is working properly
+
+
+
+Termwork 4:
+>gedit tw4c.c
+*write your code here* and exit the editor once done
+>gedit tw4s.c
+*write your code here* and exit the editor once done
+
+open two terminals
+in first terminal 
+>gcc tw4c.c -o tw4c
+in second terminal
+>gcc tw4s.c -o tw4s
+
+make sure you run the server program first in second terminal i.e.,
+>./tw4s
+and then run the client program in first terminal
+>./tw4c
+
+request the file created in tw3 *input.txt* from the client
+
+
+Termwork 5a:
+>gedit tw5a.c
+*write your code here* and exit the editor once done
+>gcc tw5a.c -o tw5a
+>./tw5a
+
+
+Termwork 5b:
+>gedit tw5b.c
+*write your code here* and exit the editor once done
+>gcc tw5b.c -o tw5b
+
+to create a hard link for *input.txt* created for tw3
+>./tw5b input.txt inputH
+check if inputH is created in folder where the programs are stored
+then do
+>cat inputH
+*this should display file content of input.txt*
+
+to create a soft link for *input.txt* created for tw3
+>./tw5b -s input.txt inputS
+
+execute this command
+>ls -li input.txt inputH inputS
+
+there should be an arrow pointing from inputS->input.txt
+and inode numbers of input.txt and inputH should be same
+
+then do
+>cat inputS
+*this should also display file content of input.txt*
+
+
+Termwork 6:
+>gedit tw6.c
+*write your code here* and exit the editor once done
+>gcc tw6.c -o tw6
+>./tw6
+
+output should be jumbled
+to kill the execution, press Ctrl + c
+
+
+Termwork 7:
+>gedit tw7.c
+*write your code here* and exit the editor once done
+>gcc tw7.c -o tw7
+>./tw7
+
+wait until you see a zombie process with command ./tw7 <defunct> and has Z as a symbol
+
+
+Termwork 8:
+>gedit tw8.c
+*write your code here* and exit the editor once done
+>gcc tw8.c -o tw8
+>./tw8
+
+if your command *./tw8* is S instead of Z, then your program is correct
+
+
+Termwork 9:
+>gedit tw9.c
+*write your code here* and exit the editor once done
+>gcc tw9.c -o tw9
+>./tw9 ls pwd ps whoami who date
+
+*you can put any number of system commands as argument list*
+
+
+Termwork 10:
+>gedit tw10.c
+*write your code here* and exit the editor once done
+>gcc tw10.c -o tw10
+>./tw10
+
+*after 5 seconds you will see Hello! as output*
