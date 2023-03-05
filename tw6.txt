@@ -28,6 +28,7 @@ static void charatatime(char *str){
 		putc(c,stdout);
 }
 
+///////////////////////////////////////////////////////////////////////////////////
 Termwork 6:
 >gedit tw6.c
 *write your code here* and exit the editor once done
