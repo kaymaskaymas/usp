@@ -102,6 +102,7 @@ close(writefd);
 		unlink(FIFO2);
 }
 
+///////////////////////////////////////////////////////////////////////////////////
 Termwork 4:
 >gedit tw4c.c
 *write your code here* and exit the editor once done
@@ -111,6 +112,7 @@ Termwork 4:
 open two terminals
 in first terminal 
 >gcc tw4c.c -o tw4c
+
 in second terminal
 >gcc tw4s.c -o tw4s
 
