@@ -4,8 +4,8 @@ TW3
 #include<sys/types.h>
 #include<fcntl.h>
 #include<unistd.h>
-#include<iostream>
-using namespace std;
+//#include<iostream>
+//using namespace std;
 
 int main(int argc, char *argv[])
 {
