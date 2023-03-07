@@ -68,7 +68,7 @@ to create a soft link for *input.txt* created for tw3
 >./tw5b -s input.txt inputS
 
 execute this command
->ls -li input.txt inputH inputS
+>ls -ln input.txt inputH inputS
 
 there should be an arrow pointing from inputS->input.txt
 and inode numbers of input.txt and inputH should be same
