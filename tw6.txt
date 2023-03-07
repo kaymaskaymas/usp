@@ -9,7 +9,7 @@ TW6
 static void charatatime(char *);
 int main(){
 	int pid,i;
-	for(i=0;i<10;i++){
+	for(i=0;i<2;i++){
 		if((pid=fork())<0)
 			printf("fork error.\n");
 		else if(pid==0)
