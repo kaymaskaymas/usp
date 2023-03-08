@@ -1,63 +1,34 @@
 TW4 CLIENT
 
 #include<stdio.h>
-#include<sys/types.h>
-#include<fcntl.h>
 #include<unistd.h>
-#include<iostream>
-using namespace std;
+#include<sys/stat.h>
+#include<fcntl.h>
+#include<string.h>
+#define FIFO1 "fifo1"
+#define FIFO2 "fifo2"
+#define PERMS 0666
+char fname[256];
 
-int main(int argc, char *argv[])
-{
-	char temp[1000];
-	setbuf(stdout,temp);
-	struct flock fvar;
-	int fdesc;
-	char buf;
-	int rc;
-	off_t offset;
-	pid_t pid=fork();
-	fdesc=open(argv[1],O_RDWR);
-	fvar.l_type=F_WRLCK;
-	fvar.l_whence=SEEK_END;
-	fvar.l_start=-100;
-	fvar.l_len=100;
-	if(fcntl(fdesc,F_SETLK,&fvar)==-1)
-{
-
-		printf("\n..........................\n");
-		printf("Unable to getlock as file has been locked by: \n");
-
-		while(fcntl(fdesc,F_GETLK,&fvar)!=-1&&fvar.l_type!=F_UNLCK)
-		{
-			printf("\n File: %s is locked by the process with pid: %u",argv[1],fvar.l_pid);
-			printf("From %ld the byte in the file for %ld", fvar.l_start,fvar.l_len);
-			printf("Number of bytes , for %s\n\n",(fvar.l_type==F_WRLCK ? "write":"read"));
-			if(!fvar.l_len)break;
-			fvar.l_start+=fvar.l_len;
-			fvar.l_len=0;
-		}
-	}
-	else{
-
-		printf("\n...........................\n");
-		printf("\n\n File: %s was not locked and aquiring of Exclusive lock was",argv[1]);
-		printf("Successful by process ID: %u \n",getpid());
-		offset=lseek(fdesc,-50,SEEK_END);
-		printf("\n\n Last 50 bytes of the file: %s\n",argv[1]);
-
-		while((rc=read(fdesc,&buf,1))>0)
-			printf("%c",buf);
-		fvar.l_type=F_UNLCK;
-		fvar.l_whence=SEEK_END;
-		fvar.l_start=-100;
-		fvar.l_len=100;
-		if(fcntl(fdesc,F_SETLKW,&fvar)!=-1)
-			printf("\n File unclocked successfully\n\n");
-	}
+int main(){
+	ssize_t n;
+	char buff[512];
+	int readfd,writefd;	
+printf("Trying to connect to server..\n");	
+writefd = open(FIFO1, O_WRONLY,0);
+	readfd = open(FIFO2,O_RDONLY,0);	
+printf("Connected..\n");	
+printf("Enter the filename to request from server: ");
+	scanf("%s", fname);	
+write(writefd, fname, strlen(fname));	
+printf("Waiting for server to reply...\n");
+	while((n=read(readfd,buff,512))>0)		
+write(1,buff,n);
+	close(readfd);
+	close(writefd);
 	return 0;
-
 }
+
 
 /////////////////////////////////////////////////////////////////////
 TW4 SERVER
@@ -78,28 +49,29 @@ int main(){
 	char buff[512];		
 if(mkfifo(FIFO1,PERMS)<0)			
 printf("Can't create FIFO files\n");
-	if(mkfifo(FIFO2,PERMS)<0)			
+		if(mkfifo(FIFO2,PERMS)<0)			
 printf("Can't create FIFO files\n");
-	else	
-		printf("Waiting for connection request........\n");
-	readfd = open(FIFO1, O_RDONLY,0);		
-writefd = open(FIFO2, O_WRONLY,0);	
+		else		
+	printf("Waiting for connection request........\n");
+		readfd = open(FIFO1, O_RDONLY,0);		
+writefd = open(FIFO2, O_WRONLY,0);		
 printf("Connection established...\n");
-	read(readfd,fname,255);		
+		read(readfd,fname,255);		
 printf("Client has requested file %s\n", fname);
-	if((fd= open(fname,O_RDWR))<0){
-		strcpy(buff,"File does not exist!\n");
+		if((fd= open(fname,O_RDWR))<0){
+			strcpy(buff,"File does not exist!\n");			
 write(writefd,buff,strlen(buff));		
-}
-		
+}		
 else{			
 while(n=read(fd,buff,512)>0)
-	write(writefd,buff,n);		
+				write(writefd,buff,n);
+		
 }		
 close(readfd);
 		unlink(FIFO1);		
 close(writefd); 
 		unlink(FIFO2);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
